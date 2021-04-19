@@ -1,8 +1,8 @@
 package com.myapp.candles.repositories
 
-import com.myapp.candles.dto.CandleDTO
 import com.myapp.candles.entities.Candle
 import org.springframework.data.repository.CrudRepository
+import org.springframework.stereotype.Repository
 
-interface CandleRepository : CrudRepository<Candle, Long> {
-}
+@Repository
+interface CandleRepository : CrudRepository<Candle, Long>
