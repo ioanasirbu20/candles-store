@@ -30,7 +30,7 @@ class CandleServiceTest {
 
         Mockito.`when`(mockRepository.findById(1)).thenReturn(expected)
 
-        val actual = candleService.findById(1)
+        val actual = candleService.findCandle(1)
 
         assertEquals(expected, actual)
     }
