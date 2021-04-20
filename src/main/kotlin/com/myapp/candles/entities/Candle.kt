@@ -9,5 +9,5 @@ import javax.persistence.Table
 @Table(name = "candle")
 class Candle(
         var scent: String,
-        @Id @GeneratedValue var id: Long? = null)
+        @Id @GeneratedValue val id: Long? = null)
 

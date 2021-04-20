@@ -17,15 +17,15 @@ class CandleController (private val candleService: CandleService) {
 
     @PostMapping("/")
     fun addCandle(@RequestBody candle : Candle) : Candle {
-        return candleService.addCandle(candle);
+        return candleService.addCandle(candle)
     }
 
     @GetMapping("/{id}")
     fun getCandle(@PathVariable id: Long) : Any {
-        try {
-            return candleService.findCandle(id).get()
+        return try {
+            candleService.findCandle(id).get()
         } catch (ex: NoSuchElementException) {
-            return "This candle does not exist"
+            "This candle does not exist."
         }
     }
 }
