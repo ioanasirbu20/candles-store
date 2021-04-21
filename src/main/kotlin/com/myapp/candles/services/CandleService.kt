@@ -9,7 +9,7 @@ import java.util.*
 @Service
 class CandleService (private val candleRepository: CandleRepository) {
 
-    fun findCandle(id: Long): Optional<Candle> {
+    fun findCandle(id: UUID): Optional<Candle> {
         return candleRepository.findById(id)
     }
 

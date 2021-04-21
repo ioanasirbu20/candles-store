@@ -4,6 +4,8 @@ import com.myapp.candles.entities.Candle
 import com.myapp.candles.services.CandleService
 
 import org.springframework.web.bind.annotation.*
+import java.util.*
+import kotlin.NoSuchElementException
 
 @RestController
 @RequestMapping("/candles")
@@ -21,7 +23,7 @@ class CandleController (private val candleService: CandleService) {
     }
 
     @GetMapping("/{id}")
-    fun getCandle(@PathVariable id: Long) : Any {
+    fun getCandle(@PathVariable id: UUID) : Any {
         return try {
             candleService.findCandle(id).get()
         } catch (ex: NoSuchElementException) {

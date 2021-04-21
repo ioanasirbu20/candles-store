@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
+import java.util.*
 
 @DataJpaTest
 class CandleRepositoryTest @Autowired constructor(
@@ -19,7 +20,7 @@ class CandleRepositoryTest @Autowired constructor(
         val entity = Candle("vanilla")
         val id = entityManager.persistAndGetId(entity)
         entityManager.flush()
-        val retrievedEntity = candleRepository.findById(id.toString().toLong())
+        val retrievedEntity = candleRepository.findById(UUID.fromString(id.toString()))
 
         assertEquals(id, retrievedEntity.get().id)
         assertEquals( "vanilla", retrievedEntity.get().scent)

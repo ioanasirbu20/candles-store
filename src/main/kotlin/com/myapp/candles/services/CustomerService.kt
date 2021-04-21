@@ -17,7 +17,7 @@ class CustomerService(private val customerRepository: CustomerRepository) {
         return customerRepository.findAll().toList()
     }
 
-    fun findById(id : Long) : Optional<Customer> {
+    fun findById(id : UUID) : Optional<Customer> {
         return customerRepository.findById(id)
     }
 }

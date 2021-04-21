@@ -1,13 +1,14 @@
 package com.myapp.candles.entities
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.Table
+import org.hibernate.annotations.GenericGenerator
+import java.util.*
+import javax.persistence.*
 
 @Entity
 @Table(name = "customer")
 class Customer(
         var name: String,
-        @Id @GeneratedValue val id: Long? = null,
+
+        @Id @GeneratedValue(generator = "system-uuid") @GenericGenerator(name = "syste,-uuid", strategy = "uuid")
+        val id: UUID? = null
 )
