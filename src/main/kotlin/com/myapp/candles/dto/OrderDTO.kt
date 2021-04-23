@@ -1,3 +1,5 @@
 package com.myapp.candles.dto
 
-data class OrderDTO(var cost : Double, var customerId : Long)
+import com.myapp.candles.entities.Customer
+
+data class OrderDTO(val cost : Double, val customer : Customer, val id : String? = null)

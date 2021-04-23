@@ -1,32 +1,26 @@
 package com.myapp.candles.controllers
 
-import com.myapp.candles.entities.Customer
+import com.myapp.candles.dto.CustomerDTO
 import com.myapp.candles.services.CustomerService
 
 import org.springframework.web.bind.annotation.*
-import java.util.*
-import kotlin.NoSuchElementException
 
 @RestController
 @RequestMapping("/customers")
 class CustomerController(private val customerService: CustomerService) {
 
     @PostMapping("/")
-    fun addCustomer(@RequestBody customer: Customer) : Customer {
+    fun addCustomer(@RequestBody customer: CustomerDTO) : CustomerDTO {
         return customerService.addCustomer(customer)
     }
 
     @GetMapping("/")
-    fun findCustomers() : List<Customer> {
+    fun findCustomers() : List<CustomerDTO> {
         return customerService.findAll();
     }
 
     @GetMapping("/{id}")
-    fun findCustomer(@PathVariable id: UUID) : Any {
-        return try {
-            customerService.findById(id).get()
-        } catch (ex: NoSuchElementException) {
-            "This customer does not exist."
-        }
+    fun findCustomer(@PathVariable id: String) : Any {
+        return customerService.findById(id)
     }
 }

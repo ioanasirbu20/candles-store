@@ -1,5 +1,6 @@
 package com.myapp.candles.controllers
 
+import com.myapp.candles.dto.CandleDTO
 import com.myapp.candles.entities.Candle
 import com.myapp.candles.services.CandleService
 
@@ -21,7 +22,7 @@ class CandleControllerTest {
 
     @Test
     fun `When getCandles return all candles` () {
-        val expected = mutableListOf(Candle("mint"), Candle("lemon"))
+        val expected = mutableListOf(CandleDTO("mint"), CandleDTO("lemon"))
 
         Mockito.`when`(mockService.findAll()).thenReturn(expected)
 

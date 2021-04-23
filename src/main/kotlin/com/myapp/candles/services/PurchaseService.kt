@@ -7,9 +7,12 @@ import com.myapp.candles.repositories.CandleCustomerRepository
 import com.myapp.candles.repositories.CandleRepository
 import com.myapp.candles.repositories.CustomerRepository
 import com.myapp.candles.repositories.OrderRepository
+import com.myapp.candles.utils.CustomerMapping
+import com.myapp.candles.utils.OrderMapping
 
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util.UUID
+import kotlin.NoSuchElementException
 
 @Service
 class PurchaseService(
@@ -18,30 +21,35 @@ class PurchaseService(
     private val customerRepository: CustomerRepository,
     private val orderRepository: OrderRepository
 ) {
-    fun purchase(customerId: UUID, candleIds: List<UUID>) : UUID? {
-        val customer = checkCustomerExists(customerId)
-        if (customer.isPresent) {
 
-            val id = orderRepository.save(Order(50.00, customer.get())).id
+    private val orderMapping: OrderMapping = OrderMapping()
+    private val customerMapping: CustomerMapping = CustomerMapping()
+
+    fun purchase(customerId: String, candleIds: List<String>): String {
+            val id = orderRepository.save(Order(50.00, checkCustomerExists(customerId))).id //TODO remove hard coding
             addCandleCustomer(customerId, candleIds)
-            return id
-        }
-        else {
-            throw Exception("Customer $customerId does not exist.")
-        }
+            return id.toString()
     }
 
-    fun checkCustomerExists(customerId: UUID) : Optional<Customer> {
-        return customerRepository.findById(customerId)
+    fun checkCustomerExists(customerId: String): Customer {
+        val customer = customerRepository.findById(UUID.fromString(customerId))
+        if (customer.isPresent)
+            return customer.get()
+        else throw NoSuchElementException("Customer $customerId does not exist.")
     }
 
-    fun checkCandlesExist(candleId: UUID) : Boolean {
-        return candleRepository.existsById(candleId)
+    fun checkCandlesExist(candleId: String): Boolean {
+        return candleRepository.existsById(UUID.fromString(candleId))
     }
 
-    fun addCandleCustomer(customerId: UUID, candleIds: List<UUID>) {
+    fun addCandleCustomer(customerId: String, candleIds: List<String>) {
         for (candleId in candleIds) {
-            if (checkCandlesExist(candleId))  candleCustomerRepository.save(CandleCustomer(candleId, customerId))
+            if (checkCandlesExist(candleId)) candleCustomerRepository.save(
+                CandleCustomer(
+                    UUID.fromString(candleId),
+                    UUID.fromString(customerId)
+                )
+            )
             else throw Exception("Candle $candleId does not exist.")
         }
     }

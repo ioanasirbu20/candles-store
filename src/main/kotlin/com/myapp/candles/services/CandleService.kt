@@ -1,23 +1,38 @@
 package com.myapp.candles.services
 
-import com.myapp.candles.entities.Candle
+import com.myapp.candles.dto.CandleDTO
 import com.myapp.candles.repositories.CandleRepository
+import com.myapp.candles.utils.CandleMapping
 
 import org.springframework.stereotype.Service
-import java.util.*
+import java.util.UUID
+import kotlin.NoSuchElementException
+import kotlin.collections.ArrayList
 
 @Service
 class CandleService (private val candleRepository: CandleRepository) {
 
-    fun findCandle(id: UUID): Optional<Candle> {
-        return candleRepository.findById(id)
+    private val candleMapping: CandleMapping = CandleMapping()
+    fun findCandle(id: String): Any {
+        return try {
+            candleMapping.entityToDto(candleRepository.findById(UUID.fromString(id)).get())
+        } catch (ex: NoSuchElementException) {
+            "This candle does not exist."
+        }
     }
 
-    fun findAll(): List<Candle> {
-        return candleRepository.findAll().toList()
+    fun findAll(): List<CandleDTO> {
+        val entities = candleRepository.findAll().toList()
+        val dtoList : MutableList<CandleDTO> = ArrayList()
+
+        for(entity in entities) {
+            dtoList.add(candleMapping.entityToDto(entity))
+        }
+
+        return dtoList
     }
 
-    fun addCandle(candle: Candle) : Candle{
-        return candleRepository.save(candle)
+    fun addCandle(candle: CandleDTO) : CandleDTO{
+        return candleMapping.entityToDto(candleRepository.save(candleMapping.dtoToEntity(candle)))
     }
 }

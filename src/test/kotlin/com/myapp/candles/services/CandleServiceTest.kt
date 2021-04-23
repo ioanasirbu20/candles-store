@@ -2,6 +2,7 @@ package com.myapp.candles.services
 
 import com.myapp.candles.entities.Candle
 import com.myapp.candles.repositories.CandleRepository
+import com.myapp.candles.utils.CandleMapping
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

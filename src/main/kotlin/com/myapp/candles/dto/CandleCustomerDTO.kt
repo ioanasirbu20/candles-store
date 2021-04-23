@@ -1,3 +1,3 @@
 package com.myapp.candles.dto
 
-data class CandleCustomerDTO(var candleId: Long)
+data class CandleCustomerDTO(val candleId: String, val customerId: String)
