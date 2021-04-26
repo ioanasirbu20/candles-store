@@ -1,6 +1,7 @@
 package com.myapp.candles.services
 
 import com.myapp.candles.dto.CandleDTO
+import com.myapp.candles.entities.Candle
 import com.myapp.candles.repositories.CandleRepository
 import com.myapp.candles.utils.CandleMapping
 

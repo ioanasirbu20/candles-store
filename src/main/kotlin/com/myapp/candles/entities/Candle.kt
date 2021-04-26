@@ -10,7 +10,8 @@ import javax.persistence.Table
 @Entity
 @Table(name = "candle")
 class Candle(
-        var scent: String,
+        val scent: String,
+        val price: Double,
 
         @Id @GeneratedValue(generator = "system-uuid") @GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator")
         val id: UUID? = null
