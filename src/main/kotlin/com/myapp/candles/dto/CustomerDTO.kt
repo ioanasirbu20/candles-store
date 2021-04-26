@@ -1,3 +1,5 @@
 package com.myapp.candles.dto
 
-data class CustomerDTO(var name : String, val id : String? = null)
+import java.util.UUID
+
+data class CustomerDTO(var name : String, val id : UUID? = null)

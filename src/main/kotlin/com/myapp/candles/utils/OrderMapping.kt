@@ -3,11 +3,9 @@ package com.myapp.candles.utils
 import com.myapp.candles.dto.OrderDTO
 import com.myapp.candles.entities.Order
 
-import java.util.UUID
-
-class OrderMapping {
+class OrderMapping { //TODO see if it's needed
 
     fun dtoToEntity(orderDTO: OrderDTO) : Order {
-        return Order(orderDTO.cost, orderDTO.customer, UUID.fromString(orderDTO.id))
+        return Order(orderDTO.cost, orderDTO.customer, orderDTO.id)
     }
 }

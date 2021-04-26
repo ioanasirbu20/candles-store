@@ -4,6 +4,7 @@ import com.myapp.candles.dto.CustomerDTO
 import com.myapp.candles.services.CustomerService
 
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
 @RequestMapping("/customers")
@@ -20,7 +21,7 @@ class CustomerController(private val customerService: CustomerService) {
     }
 
     @GetMapping("/{id}")
-    fun findCustomer(@PathVariable id: String) : Any {
+    fun findCustomer(@PathVariable id: UUID) : Any {
         return customerService.findById(id)
     }
 }

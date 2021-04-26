@@ -17,7 +17,7 @@ class CandleRepositoryTest @Autowired constructor(
     @Test
     fun `When findById return the right entity` () {
 
-        val entity = Candle("vanilla")
+        val entity = Candle("vanilla", 6.5)
         val id = entityManager.persistAndGetId(entity)
         entityManager.flush()
         val retrievedEntity = candleRepository.findById(UUID.fromString(id.toString()))
@@ -28,8 +28,8 @@ class CandleRepositoryTest @Autowired constructor(
 
     @Test
     fun `When findAll return all candle entities` () {
-        val entityOne = Candle("mint")
-        val entityTwo = Candle( "lemon")
+        val entityOne = Candle("mint", 4.5)
+        val entityTwo = Candle( "lemon", 2.3)
         entityManager.persist(entityOne)
         entityManager.persist(entityTwo)
         entityManager.flush()

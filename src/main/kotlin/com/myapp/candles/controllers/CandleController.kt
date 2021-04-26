@@ -4,6 +4,7 @@ import com.myapp.candles.dto.CandleDTO
 import com.myapp.candles.services.CandleService
 
 import org.springframework.web.bind.annotation.*
+import java.util.UUID
 
 @RestController
 @RequestMapping("/candles")
@@ -21,7 +22,7 @@ class CandleController (private val candleService: CandleService) {
     }
 
     @GetMapping("/{id}")
-    fun getCandle(@PathVariable id: String) : Any {
+    fun getCandle(@PathVariable id: UUID) : Any {
         return candleService.findCandle(id)
     }
 }

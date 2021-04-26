@@ -16,7 +16,7 @@ class CandleServiceTest {
 
     @Test
     fun `When findAll return all` () {
-        val expected = mutableListOf(Candle("mint"), Candle("lemon"))
+        val expected = mutableListOf(Candle("mint", 4.4), Candle("lemon", 7.2))
 
         Mockito.`when`(mockRepository.findAll()).thenReturn(expected.asIterable())
 

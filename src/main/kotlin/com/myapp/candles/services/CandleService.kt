@@ -1,7 +1,6 @@
 package com.myapp.candles.services
 
 import com.myapp.candles.dto.CandleDTO
-import com.myapp.candles.entities.Candle
 import com.myapp.candles.repositories.CandleRepository
 import com.myapp.candles.utils.CandleMapping
 
@@ -14,9 +13,9 @@ import kotlin.collections.ArrayList
 class CandleService (private val candleRepository: CandleRepository) {
 
     private val candleMapping: CandleMapping = CandleMapping()
-    fun findCandle(id: String): Any {
+    fun findCandle(id: UUID): Any {
         return try {
-            candleMapping.entityToDto(candleRepository.findById(UUID.fromString(id)).get())
+            candleMapping.entityToDto(candleRepository.findById(id).get())
         } catch (ex: NoSuchElementException) {
             "This candle does not exist."
         }

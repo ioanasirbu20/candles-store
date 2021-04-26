@@ -29,9 +29,9 @@ class CustomerService(private val customerRepository: CustomerRepository) {
         return dtoList
     }
 
-    fun findById(id : String) : Any {
+    fun findById(id : UUID) : Any {
         return try {
-            customerRepository.findById(UUID.fromString(id)).get()
+            customerRepository.findById(id).get()
         } catch (ex: NoSuchElementException) {
             "This customer does not exist."
         }

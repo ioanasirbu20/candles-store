@@ -24,7 +24,7 @@ class PurchaseService(
 
     private val candleCustomerMapping: CandleCustomerMapping = CandleCustomerMapping()
 
-    fun purchase(customerId: String, candleIds: List<String>): String {
+    fun purchase(customerId: UUID, candleIds: List<UUID>): String {
         val id = orderRepository.save(
             Order(addCandleCustomer(customerId, candleIds), checkCustomerExists(customerId))
         ).id
@@ -32,18 +32,18 @@ class PurchaseService(
         return id.toString()
     }
 
-    fun checkCustomerExists(customerId: String): Customer {
-        val customer = customerRepository.findById(UUID.fromString(customerId))
+    fun checkCustomerExists(customerId: UUID): Customer {
+        val customer = customerRepository.findById(customerId)
         if (customer.isPresent)
             return customer.get()
         else throw NoSuchElementException("Customer $customerId does not exist.")
     }
 
-    fun checkCandlesExist(candleId: String): Optional<Candle> {
-        return candleRepository.findById(UUID.fromString(candleId))
+    fun checkCandlesExist(candleId: UUID): Optional<Candle> {
+        return candleRepository.findById(candleId)
     }
 
-    fun addCandleCustomer(customerId: String, candleIds: List<String>): Double {
+    fun addCandleCustomer(customerId: UUID, candleIds: List<UUID>): Double {
         var price: Double = 0.0
         for (candleId in candleIds) {
             val candle = checkCandlesExist(candleId)

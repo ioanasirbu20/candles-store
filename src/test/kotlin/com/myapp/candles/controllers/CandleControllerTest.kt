@@ -22,7 +22,7 @@ class CandleControllerTest {
 
     @Test
     fun `When getCandles return all candles` () {
-        val expected = mutableListOf(CandleDTO("mint"), CandleDTO("lemon"))
+        val expected = mutableListOf(CandleDTO("mint", 5.0), CandleDTO("lemon", 10.99))
 
         Mockito.`when`(mockService.findAll()).thenReturn(expected)
 
