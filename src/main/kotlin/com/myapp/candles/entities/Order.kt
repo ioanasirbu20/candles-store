@@ -7,11 +7,11 @@ import javax.persistence.*
 @Entity
 @Table(name = "orders")
 class Order(
-        var cost: Double,
+        val cost: Double,
 
         @ManyToOne
         @JoinColumn(name ="customer_id")
-        var customer: Customer,
+        val customer: Customer,
 
         @Id @GeneratedValue(generator = "system-uuid") @GenericGenerator(name = "system-uuid", strategy = "org.hibernate.id.UUIDGenerator")
         val id: UUID? = null

@@ -7,7 +7,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "customer")
 class Customer(
-        var name: String,
+        val name: String,
 
         @Id @GeneratedValue(generator = "system-uuid") @GenericGenerator(name = "syste,-uuid", strategy = "uuid")
         val id: UUID? = null
