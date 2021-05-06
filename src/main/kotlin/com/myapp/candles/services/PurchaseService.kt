@@ -25,8 +25,9 @@ class PurchaseService(
     private val candleCustomerMapping: CandleCustomerMapping = CandleCustomerMapping()
 
     fun purchase(customerId: UUID, candleIds: List<UUID>): String {
+        val customer = checkCustomerExists(customerId)
         val id = orderRepository.save(
-            Order(addCandleCustomer(customerId, candleIds), checkCustomerExists(customerId))
+            Order(addCandleCustomer(customerId, candleIds), customer)
         ).id
 
         return id.toString()
