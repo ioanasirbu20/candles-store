@@ -13,6 +13,10 @@ class PurchaseController (
 
     @PostMapping("/{customerId}/{candleIds}")
     fun purchase(@PathVariable customerId: UUID, @PathVariable candleIds: List<UUID>) : String? {
-        return purchaseService.purchase(customerId, candleIds).toString()
+        return try {
+            purchaseService.purchase(customerId, candleIds)
+        } catch(ex: NoSuchElementException) {
+            ex.message
+        }
     }
 }

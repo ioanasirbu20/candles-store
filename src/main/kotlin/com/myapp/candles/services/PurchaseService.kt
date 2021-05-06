@@ -11,6 +11,7 @@ import com.myapp.candles.repositories.OrderRepository
 import com.myapp.candles.utils.CandleCustomerMapping
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import kotlin.NoSuchElementException
 
@@ -24,10 +25,11 @@ class PurchaseService(
 
     private val candleCustomerMapping: CandleCustomerMapping = CandleCustomerMapping()
 
+    @Transactional
     fun purchase(customerId: UUID, candleIds: List<UUID>): String {
-        val customer = checkCustomerExists(customerId)
+//        val customer = checkCustomerExists(customerId)
         val id = orderRepository.save(
-            Order(addCandleCustomer(customerId, candleIds), customer)
+            Order(addCandleCustomer(customerId, candleIds), checkCustomerExists(customerId) /*customer*/)
         ).id
 
         return id.toString()
@@ -53,7 +55,7 @@ class PurchaseService(
                     candleCustomerMapping.dtoToEntity(CandleCustomerDTO(candleId, customerId))
                 )
                 price += candle.get().price
-            } else throw Exception("Candle $candleId does not exist.")
+            } else throw NoSuchElementException("Candle $candleId does not exist.")
         }
         return price
     }
