@@ -11,17 +11,17 @@ import java.util.*
 class CustomerController(private val customerService: CustomerService) {
 
     @PostMapping("/")
-    fun addCustomer(@RequestBody customer: CustomerDTO) : CustomerDTO {
+    fun addCustomer(@RequestBody customer: CustomerDTO): CustomerDTO {
         return customerService.addCustomer(customer)
     }
 
     @GetMapping("/")
-    fun findCustomers() : List<CustomerDTO> {
+    fun findCustomers(): List<CustomerDTO> {
         return customerService.findAll();
     }
 
     @GetMapping("/{id}")
-    fun findCustomer(@PathVariable id: UUID) : Any {
+    fun findCustomer(@PathVariable id: UUID): Any {
         return customerService.findById(id)
     }
 }
